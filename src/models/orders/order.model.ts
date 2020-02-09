@@ -1,9 +1,9 @@
-export interface Order {
-    id: string;
-    title: string;
-    description: string;
-    status: OrderStatus
-}
+// export interface Order {
+//     id: string;
+//     title: string;
+//     description: string;
+//     status: OrderStatus
+// }
 
 export enum OrderStatus {
     OPEN = "OPEN",
