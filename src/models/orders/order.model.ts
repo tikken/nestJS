@@ -5,7 +5,7 @@ export interface Order {
     status: OrderStatus
 }
 
-enum OrderStatus {
+export enum OrderStatus {
     OPEN = "OPEN",
     IN_PROGRESS = "IN_PROGRESS",
     DELIVERING = "DELIVERING",
