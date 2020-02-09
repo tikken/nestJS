@@ -1,9 +1,21 @@
-import {Controller, Get, Post, Body, Param, Delete, Patch, Query, UsePipes, ValidationPipe} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Patch,
+  Query,
+  UsePipes,
+  ValidationPipe,
+  ParseIntPipe,
+} from '@nestjs/common';
 import {OrdersService} from '../../services/orders/orders.service';
-import {OrderStatus} from '../../models/orders/order.model';
 import {CreateOrderDto} from '../../dtos/orders/create-order.dto';
 import {GetOrderFilterDto} from "../../dtos/orders/get-order.dto";
 import {OrderStatusValidationPipe} from "../../pipes/orders/order-status-validation.pipe";
+import { Order } from '../../entities/order.entity';
 
 @Controller('orders')
 export class OrdersController {
@@ -21,10 +33,10 @@ export class OrdersController {
     //     }
     // }
     //
-    // @Get("/:id")
-    // getOrderById(@Param('id') id: string): Order {
-    //     return this.ordersService.getOrderById(id);
-    // }
+    @Get("/:id")
+    getOrderById(@Param('id', ParseIntPipe) id: number): Promise<Order> {
+        return this.ordersService.getOrderById(id);
+    }
     //
     // //ex http://localhost:3000/orders/542f71c0-4b4a-11ea-bb05-ff95b8fcea8d/status
     // @Patch("/:id/status")

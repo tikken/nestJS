@@ -1,12 +1,18 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
-import {OrderStatus} from '../../models/orders/order.model';
-import * as uuid from 'uuid/v1';
 import {CreateOrderDto} from "../../dtos/orders/create-order.dto";
 import {GetOrderFilterDto} from "../../dtos/orders/get-order.dto";
+import { OrderRepository } from '../../repositories/order.repository';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Order} from '../../entities/order.entity';
 
 @Injectable()
 export class OrdersService {
-    // private orders: Order[] = [];
+    constructor(
+      @InjectRepository(OrderRepository)
+      private orderRepository: OrderRepository
+    ) {
+
+    }
     //
     //
     // getOrdersWithFilters(filterDto: GetOrderFilterDto): Order[] {
@@ -32,15 +38,15 @@ export class OrdersService {
     //     return this.orders;
     // }
     //
-    // getOrderById(id: string): Order {
-    //     const found = this.orders.find(task => task.id === id);
-    //
-    //     if(!found) {
-    //         throw new NotFoundException(`Task with id-${id} not found`);
-    //     }
-    //
-    //     return found;
-    // }
+    async getOrderById(id: number): Promise<Order> {
+        const found = await this.orderRepository.findOne(id);
+
+        if(!found) {
+            throw new NotFoundException(`Task with id-${id} not found`);
+        }
+
+        return found;
+    }
     //
     // deleteOrder(id: string): void {
     //     const found = this.getOrderById(id);
