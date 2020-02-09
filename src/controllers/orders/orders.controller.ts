@@ -12,7 +12,7 @@ export class OrdersController {
 
     // http://localhost:3000/orders?status=OPEN&search=4m
     @Get()
-    getOrders(@Query() filterDto: GetOrderFilterDto): Order[] {
+    getOrders(@Query(ValidationPipe) filterDto: GetOrderFilterDto): Order[] {
 
         if (Object.keys(filterDto).length) {
             return this.ordersService.getOrdersWithFilters(filterDto);
