@@ -1,6 +1,6 @@
-import {Controller, Get, Post, Body, Param, Delete} from '@nestjs/common';
+import {Controller, Get, Post, Body, Param, Delete, Patch} from '@nestjs/common';
 import {OrdersService} from '../../services/orders/orders.service';
-import {Order} from '../../models/orders/order.model';
+import {Order, OrderStatus} from '../../models/orders/order.model';
 import {CreateOrderDto} from '../../dtos/orders/create-order.dto';
 
 @Controller('orders')
@@ -18,16 +18,23 @@ export class OrdersController {
         return this.ordersService.getOrderById(id);
     }
 
+    //ex http://localhost:3000/orders/542f71c0-4b4a-11ea-bb05-ff95b8fcea8d/status
+    @Patch("/:id/status")
+    updateOrderStatus(
+        @Param('id') id: string,
+        @Body('status') status: OrderStatus
+    ): Order {
+        return this.ordersService.updateOrderStatus(id, status);
+    }
+
     @Delete("/:id")
-    deleteOrder(@Param('id') id: string):void {
-        console.log('controller', id);
+    deleteOrder(@Param('id') id: string): void {
         return this.ordersService.deleteOrder(id);
     }
 
     @Post()
     createTask(
         //stink way
-
         // @Body('title') title: string,
         // @Body('description') description: string
 
