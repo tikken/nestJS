@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Order, OrderStatus } from '../../models/orders/order.model';
 import * as uuid from 'uuid/v1';
+import {CreateOrderDto} from "../../dtos/orders/create-order.dto";
 
 @Injectable()
 export class OrdersService {
@@ -10,7 +11,9 @@ export class OrdersService {
     return this.orders;
   }
 
-  createOrder(title: string, description: string): Order {
+  createOrder(createOrderDto: CreateOrderDto): Order {
+    const {title, description} = createOrderDto;
+
     const order: Order = {
       id: uuid(),
       title,
