@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body, Param, Delete, Patch, Query} from '@nestjs/common';
+import {Controller, Get, Post, Body, Param, Delete, Patch, Query, UsePipes, ValidationPipe} from '@nestjs/common';
 import {OrdersService} from '../../services/orders/orders.service';
 import {Order, OrderStatus} from '../../models/orders/order.model';
 import {CreateOrderDto} from '../../dtos/orders/create-order.dto';
@@ -18,8 +18,6 @@ export class OrdersController {
         } else {
             return this.ordersService.getAllOrders();
         }
-
-        console.log(filterDto);
     }
 
     @Get("/:id")
@@ -42,6 +40,7 @@ export class OrdersController {
     }
 
     @Post()
+    @UsePipes(ValidationPipe)
     createTask(
         //stink way
         // @Body('title') title: string,

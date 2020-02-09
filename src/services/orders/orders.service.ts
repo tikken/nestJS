@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import {Order, OrderStatus} from '../../models/orders/order.model';
 import * as uuid from 'uuid/v1';
 import {CreateOrderDto} from "../../dtos/orders/create-order.dto";
@@ -33,7 +33,13 @@ export class OrdersService {
     }
 
     getOrderById(id: string): Order {
-        return this.orders.find(task => task.id === id);
+        const found = this.orders.find(task => task.id === id);
+
+        if(!found) {
+            throw new NotFoundException(`Task with id-${id} not found`);
+        }
+
+        return found;
     }
 
     deleteOrder(id: string): void {
