@@ -1,27 +1,31 @@
-import { Injectable } from '@nestjs/common';
-import { Order, OrderStatus } from '../../models/orders/order.model';
+import {Injectable} from '@nestjs/common';
+import {Order, OrderStatus} from '../../models/orders/order.model';
 import * as uuid from 'uuid/v1';
 import {CreateOrderDto} from "../../dtos/orders/create-order.dto";
 
 @Injectable()
 export class OrdersService {
-  private orders: Order[] = [];
+    private orders: Order[] = [];
 
-  getAllOrders(): Order[] {
-    return this.orders;
-  }
+    getAllOrders(): Order[] {
+        return this.orders;
+    }
 
-  createOrder(createOrderDto: CreateOrderDto): Order {
-    const {title, description} = createOrderDto;
+    getOrderById(id: string): Order {
+        return this.orders.find(task => task.id === id);
+    }
 
-    const order: Order = {
-      id: uuid(),
-      title,
-      description,
-      status: OrderStatus.OPEN,
-    };
+    createOrder(createOrderDto: CreateOrderDto): Order {
+        const {title, description} = createOrderDto;
 
-    this.orders.push(order);
-    return order;
-  }
+        const order: Order = {
+            id: uuid(),
+            title,
+            description,
+            status: OrderStatus.OPEN,
+        };
+
+        this.orders.push(order);
+        return order;
+    }
 }
