@@ -15,6 +15,12 @@ export class OrdersService {
         return this.orders.find(task => task.id === id);
     }
 
+    deleteOrder(id: string): void {
+        console.log('service', id);
+
+       this.orders = this.orders.filter(order => order.id != id);
+    }
+
     createOrder(createOrderDto: CreateOrderDto): Order {
         const {title, description} = createOrderDto;
 
