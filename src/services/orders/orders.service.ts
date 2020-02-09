@@ -43,17 +43,15 @@ export class OrdersService {
     }
 
     deleteOrder(id: string): void {
-        this.orders = this.orders.filter(order => order.id != id);
+        const found = this.getOrderById(id);
+
+        this.orders = this.orders.filter(order => order.id != found.id);
     }
 
     updateOrderStatus(id: string, status: OrderStatus): Order {
-
-
         const order = this.getOrderById(id);
         order.status = status;
-
-        console.log(id, status, order, 'service');
-
+        // console.log(id, status, order, 'service');
         return order;
     }
 
