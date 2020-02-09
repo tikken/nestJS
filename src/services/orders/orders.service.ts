@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { Order } from "../../models/orders/order.model";
 
 @Injectable()
 export class OrdersService {
-    private orders = [];
+    private orders: Order[] = [];
 
-    getAllOrders() {
+    getAllOrders(): Order[] {
         return this.orders;
     }
 }
