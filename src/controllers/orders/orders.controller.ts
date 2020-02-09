@@ -1,16 +1,25 @@
-import {Controller, Get, Post, Body, Param, Delete, Patch} from '@nestjs/common';
+import {Controller, Get, Post, Body, Param, Delete, Patch, Query} from '@nestjs/common';
 import {OrdersService} from '../../services/orders/orders.service';
 import {Order, OrderStatus} from '../../models/orders/order.model';
 import {CreateOrderDto} from '../../dtos/orders/create-order.dto';
+import {GetOrderFilterDto} from "../../dtos/orders/get-order.dto";
 
 @Controller('orders')
 export class OrdersController {
-    constructor(private ordersService: OrdersService) {
+        constructor(private ordersService: OrdersService) {
     }
 
+    // http://localhost:3000/orders?status=OPEN&search=4m
     @Get()
-    getAllOrders(): Order[] {
-        return this.ordersService.getAllOrders();
+    getOrders(@Query() filterDto: GetOrderFilterDto): Order[] {
+
+        if(Object.keys(filterDto).length) {
+            return this.ordersService.getOrdersWithFilters(filterDto);
+        } else {
+            return this.ordersService.getAllOrders();
+        }
+
+        console.log(filterDto);
     }
 
     @Get("/:id")
