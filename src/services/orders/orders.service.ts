@@ -14,8 +14,6 @@ export class OrdersService {
     ) {
 
     }
-    //
-    //
     // getOrdersWithFilters(filterDto: GetOrderFilterDto): Order[] {
     //     const {status, search} = filterDto;
     //
@@ -57,13 +55,14 @@ export class OrdersService {
       }
     }
 
-    // updateOrderStatus(id: string, status: OrderStatus): Order {
-    //     const order = this.getOrderById(id);
-    //     order.status = status;
-    //     // console.log(id, status, order, 'service');
-    //     return order;
-    // }
-    //
+    async updateOrderStatus(id: number, status: OrderStatus): Promise<Order> {
+        const order = await this.getOrderById(id);
+              order.status = status;
+              await order.save();
+
+        return order;
+    }
+
     async createOrder(createOrderDto: CreateOrderDto): Promise<Order> {
        return this.orderRepository.createOrder(createOrderDto)
     }
