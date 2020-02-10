@@ -63,16 +63,6 @@ export class OrdersService {
     // }
     //
     async createOrder(createOrderDto: CreateOrderDto): Promise<Order> {
-        const {title, description} = createOrderDto;
-
-        const order = new Order();
-
-        order.title = title;
-        order.description = description;
-        order.status = OrderStatus.OPEN;
-
-        await order.save();
-
-        return order;
+       return this.orderRepository.createOrder(createOrderDto)
     }
 }
