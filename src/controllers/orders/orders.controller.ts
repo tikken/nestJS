@@ -47,11 +47,11 @@ export class OrdersController {
     //     return this.ordersService.updateOrderStatus(id, status);
     // }
     //
-    // @Delete("/:id")
-    // deleteOrder(@Param('id') id: string): void {
-    //     return this.ordersService.deleteOrder(id);
-    // }
-    //
+    @Delete("/:id")
+    deleteOrder(@Param('id', ParseIntPipe) id: number): Promise<void> {
+       return this.ordersService.deleteOrder(id);
+    }
+
     @Post()
     @UsePipes(ValidationPipe)
     createOrder(

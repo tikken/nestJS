@@ -48,13 +48,11 @@ export class OrdersService {
 
         return found;
     }
-    //
-    // deleteOrder(id: string): void {
-    //     const found = this.getOrderById(id);
-    //
-    //     this.orders = this.orders.filter(order => order.id != found.id);
-    // }
-    //
+
+    async deleteOrder(id: number): Promise<void> {
+      const result = await this.orderRepository.delete(id);
+    }
+
     // updateOrderStatus(id: string, status: OrderStatus): Order {
     //     const order = this.getOrderById(id);
     //     order.status = status;

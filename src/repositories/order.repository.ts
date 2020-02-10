@@ -6,7 +6,7 @@ import { OrderStatus } from '../models/orders/order.model';
 @EntityRepository(Order)
 export class OrderRepository extends Repository<Order> {
   async createOrder(createOrderDto: CreateOrderDto): Promise<Order> {
-    const {title, description} = createOrderDto;
+    const { title, description } = createOrderDto;
     const order = new Order();
 
     order.title = title;
