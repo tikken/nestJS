@@ -4,6 +4,7 @@ import {GetOrderFilterDto} from "../../dtos/orders/get-order.dto";
 import { OrderRepository } from '../../repositories/order.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Order} from '../../entities/order.entity';
+import { OrderStatus } from '../../models/orders/order.model';
 
 @Injectable()
 export class OrdersService {
@@ -61,17 +62,17 @@ export class OrdersService {
     //     return order;
     // }
     //
-    // createOrder(createOrderDto: CreateOrderDto): Order {
-    //     const {title, description} = createOrderDto;
-    //
-    //     const order: Order = {
-    //         id: uuid(),
-    //         title,
-    //         description,
-    //         status: OrderStatus.OPEN,
-    //     };
-    //
-    //     this.orders.push(order);
-    //     return order;
-    // }
+    async createOrder(createOrderDto: CreateOrderDto): Promise<Order> {
+        const {title, description} = createOrderDto;
+
+        const order = new Order();
+
+        order.title = title;
+        order.description = description;
+        order.status = OrderStatus.OPEN;
+
+        await order.save();
+
+        return order;
+    }
 }

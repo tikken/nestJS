@@ -52,15 +52,15 @@ export class OrdersController {
     //     return this.ordersService.deleteOrder(id);
     // }
     //
-    // @Post()
-    // @UsePipes(ValidationPipe)
-    // createTask(
-    //     //stink way
-    //     // @Body('title') title: string,
-    //     // @Body('description') description: string
-    //
-    //     @Body() createOrderDto: CreateOrderDto
-    // ): Order {
-    //     return this.ordersService.createOrder(createOrderDto);
-    // }
+    @Post()
+    @UsePipes(ValidationPipe)
+    createOrder(
+        //stink way
+        // @Body('title') title: string,
+        // @Body('description') description: string
+
+        @Body() createOrderDto: CreateOrderDto
+    ): Promise<Order> {
+        return this.ordersService.createOrder(createOrderDto);
+    }
 }
