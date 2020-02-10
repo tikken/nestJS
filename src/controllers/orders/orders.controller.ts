@@ -24,15 +24,10 @@ export class OrdersController {
     }
 
     //http://localhost:3000/orders?status=OPEN&search=4m
-    // @Get()
-    // getOrders(@Query(ValidationPipe) filterDto: GetOrderFilterDto): Order[] {
-    //
-    //     if (Object.keys(filterDto).length) {
-    //         return this.ordersService.getOrdersWithFilters(filterDto);
-    //     } else {
-    //         return this.ordersService.getAllOrders();
-    //     }
-    // }
+    @Get()
+    getOrders(@Query(ValidationPipe) filterDto: GetOrderFilterDto): Promise<Order[]> {
+        return this.ordersService.getOrders(filterDto);
+    }
 
     @Get("/:id")
     getOrderById(@Param('id', ParseIntPipe) id: number): Promise<Order> {

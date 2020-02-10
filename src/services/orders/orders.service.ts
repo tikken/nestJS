@@ -14,29 +14,10 @@ export class OrdersService {
     ) {
 
     }
-    // getOrdersWithFilters(filterDto: GetOrderFilterDto): Order[] {
-    //     const {status, search} = filterDto;
-    //
-    //     let orders = this.getAllOrders();
-    //
-    //     if(status) {
-    //         orders = orders.filter(order => order.status === status);
-    //     }
-    //
-    //     if(search) {
-    //         orders = orders.filter(
-    //             order => order.title.includes(search) ||
-    //             order.description.includes(search)
-    //         )
-    //     }
-    //
-    //     return orders;
-    // }
-    //
-    // getAllOrders(): Order[] {
-    //     return this.orders;
-    // }
-    //
+    async getOrders(filterDto: GetOrderFilterDto): Promise<Order[]> {
+        return this.orderRepository.getOrders(filterDto);
+    }
+
     async getOrderById(id: number): Promise<Order> {
         const found = await this.orderRepository.findOne(id);
 
