@@ -14,4 +14,8 @@ export class UserRepository extends Repository<User> {
 
     await user.save();
   }
+
+  async signIn() {
+
+  }
 }
