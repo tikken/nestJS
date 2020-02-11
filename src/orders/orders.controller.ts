@@ -45,13 +45,14 @@ export class OrdersController {
   }
 
   //ex http://localhost:3000/orders/542f71c0-4b4a-11ea-bb05-ff95b8fcea8d/status
-  // @Patch('/:id/status')
-  // updateOrderStatus(
-  //   @Param('id') id: number,
-  //   @Body('status', OrderStatusValidationPipe) status: OrderStatus,
-  // ): Promise<Order> {
-  //   return this.ordersService.updateOrderStatus(id, status);
-  // }
+  @Patch('/:id/status')
+  updateOrderStatus(
+    @Param('id') id: number,
+    @GetUser() user: User,
+    @Body('status', OrderStatusValidationPipe) status: OrderStatus,
+  ): Promise<Order> {
+    return this.ordersService.updateOrderStatus(id, status, user);
+  }
 
   @Delete('/:id')
   deleteOrder(@Param('id', ParseIntPipe) id: number): Promise<void> {

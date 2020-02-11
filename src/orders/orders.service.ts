@@ -44,13 +44,17 @@ export class OrdersService {
     }
   }
 
-  // async updateOrderStatus(id: number, status: OrderStatus): Promise<Order> {
-  //   const order = await this.getOrderById(id);
-  //   order.status = status;
-  //   await order.save();
-  //
-  //   return order;
-  // }
+  async updateOrderStatus(
+    id: number,
+    status: OrderStatus,
+    user: User
+  ): Promise<Order> {
+    const order = await this.getOrderById(id, user);
+    order.status = status;
+    await order.save();
+
+    return order;
+  }
 
   async createOrder(
     createOrderDto: CreateOrderDto,
