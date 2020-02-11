@@ -8,20 +8,25 @@ import { User } from '../auth/user.entity';
 @EntityRepository(Order)
 export class OrderRepository extends Repository<Order> {
 
-  async getOrders(filterDto: GetOrderFilterDto): Promise<Order[]> {
-      const { status, search } = filterDto;
-      const query = this.createQueryBuilder('order');
+  async getOrders(
+    filterDto: GetOrderFilterDto,
+    user: User,
+  ): Promise<Order[]> {
+    const { status, search } = filterDto;
+    const query = this.createQueryBuilder('order');
 
-      if(status) {
-          query.andWhere('order.status = :status', { status });
-      }
+    query.where('task.userId = :userId', { userId: user.id });
 
-      if(search) {
-          query.andWhere('(order.title LIKE :search OR order.description LIKE :search)', { search: `%${search}%` });
-      }
+    if (status) {
+      query.andWhere('order.status = :status', { status });
+    }
 
-      const orders = await query.getMany();
-      return orders;
+    if (search) {
+      query.andWhere('(order.title LIKE :search OR order.description LIKE :search)', { search: `%${search}%` });
+    }
+
+    const orders = await query.getMany();
+    return orders;
   }
 
   async createOrder(

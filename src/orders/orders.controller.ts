@@ -30,8 +30,10 @@ export class OrdersController {
 
   //http://localhost:3000/orders?status=OPEN&search=4m
   @Get()
-  getOrders(@Query(ValidationPipe) filterDto: GetOrderFilterDto): Promise<Order[]> {
-    return this.ordersService.getOrders(filterDto);
+  getOrders(
+    @Query(ValidationPipe) filterDto: GetOrderFilterDto,
+    @GetUser() user: User): Promise<Order[]> {
+    return this.ordersService.getOrders(filterDto, user);
   }
 
   @Get('/:id')
@@ -60,7 +62,7 @@ export class OrdersController {
     // @Body('title') title: string,
     // @Body('description') description: string
     @Body() createOrderDto: CreateOrderDto,
-    @GetUser() user: User
+    @GetUser() user: User,
   ): Promise<Order> {
     return this.ordersService.createOrder(createOrderDto, user);
   }
