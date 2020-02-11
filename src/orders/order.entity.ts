@@ -1,5 +1,5 @@
 import {BaseEntity, Entity, PrimaryGeneratedColumn, Column} from "typeorm";
-import {OrderStatus} from "../models/orders/order.model";
+import {OrderStatus} from "./order.model";
 
 @Entity()
 export class Order extends BaseEntity {

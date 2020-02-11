@@ -1,8 +1,8 @@
 import {Module} from '@nestjs/common';
-import {OrdersController} from '../../controllers/orders/orders.controller';
-import {OrdersService} from '../../services/orders/orders.service';
+import {OrdersController} from './orders.controller';
+import {OrdersService} from './orders.service';
 import {TypeOrmModule} from "@nestjs/typeorm";
-import {OrderRepository} from "../../repositories/order.repository";
+import {OrderRepository} from "./order.repository";
 
 @Module({
     imports: [

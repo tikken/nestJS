@@ -1,8 +1,8 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { Order } from '../entities/order.entity';
-import { CreateOrderDto } from '../dtos/orders/create-order.dto';
-import { OrderStatus } from '../models/orders/order.model';
-import { GetOrderFilterDto } from '../dtos/orders/get-order.dto';
+import { Order } from './order.entity';
+import { CreateOrderDto } from './create-order.dto';
+import { OrderStatus } from './order.model';
+import { GetOrderFilterDto } from './get-order.dto';
 
 @EntityRepository(Order)
 export class OrderRepository extends Repository<Order> {

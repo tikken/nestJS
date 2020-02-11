@@ -11,12 +11,12 @@ import {
   ValidationPipe,
   ParseIntPipe,
 } from '@nestjs/common';
-import {OrdersService} from '../../services/orders/orders.service';
-import {CreateOrderDto} from '../../dtos/orders/create-order.dto';
-import {GetOrderFilterDto} from "../../dtos/orders/get-order.dto";
-import {OrderStatusValidationPipe} from "../../pipes/orders/order-status-validation.pipe";
-import { Order } from '../../entities/order.entity';
-import { OrderStatus } from '../../models/orders/order.model';
+import {OrdersService} from './orders.service';
+import {CreateOrderDto} from './create-order.dto';
+import {GetOrderFilterDto} from "./get-order.dto";
+import {OrderStatusValidationPipe} from "./order-status-validation.pipe";
+import { Order } from './order.entity';
+import { OrderStatus } from './order.model';
 
 @Controller('orders')
 export class OrdersController {

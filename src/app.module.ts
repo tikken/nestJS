@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { OrdersModule } from './modules/orders/orders.module';
+import { OrdersModule } from './orders/orders.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
 import { AuthModule } from './auth/auth.module';
