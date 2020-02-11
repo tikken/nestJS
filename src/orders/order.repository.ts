@@ -15,7 +15,7 @@ export class OrderRepository extends Repository<Order> {
     const { status, search } = filterDto;
     const query = this.createQueryBuilder('order');
 
-    query.where('task.userId = :userId', { userId: user.id });
+    query.where('order.userId = :userId', { userId: user.id });
 
     if (status) {
       query.andWhere('order.status = :status', { status });

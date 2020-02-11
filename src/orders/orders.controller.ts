@@ -37,18 +37,21 @@ export class OrdersController {
   }
 
   @Get('/:id')
-  getOrderById(@Param('id', ParseIntPipe) id: number): Promise<Order> {
-    return this.ordersService.getOrderById(id);
+  getOrderById(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User
+  ): Promise<Order> {
+    return this.ordersService.getOrderById(id, user);
   }
 
   //ex http://localhost:3000/orders/542f71c0-4b4a-11ea-bb05-ff95b8fcea8d/status
-  @Patch('/:id/status')
-  updateOrderStatus(
-    @Param('id') id: number,
-    @Body('status', OrderStatusValidationPipe) status: OrderStatus,
-  ): Promise<Order> {
-    return this.ordersService.updateOrderStatus(id, status);
-  }
+  // @Patch('/:id/status')
+  // updateOrderStatus(
+  //   @Param('id') id: number,
+  //   @Body('status', OrderStatusValidationPipe) status: OrderStatus,
+  // ): Promise<Order> {
+  //   return this.ordersService.updateOrderStatus(id, status);
+  // }
 
   @Delete('/:id')
   deleteOrder(@Param('id', ParseIntPipe) id: number): Promise<void> {

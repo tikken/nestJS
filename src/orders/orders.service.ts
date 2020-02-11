@@ -23,11 +23,14 @@ export class OrdersService {
     return this.orderRepository.getOrders(filterDto, user);
   }
 
-  async getOrderById(id: number): Promise<Order> {
-    const found = await this.orderRepository.findOne(id);
+  async getOrderById(
+    id: number,
+    user: User,
+  ): Promise<Order> {
+    const found = await this.orderRepository.findOne({ where: { id, userId: user.id } });
 
     if (!found) {
-      throw new NotFoundException(`Task with id-${id} not found`);
+      throw new NotFoundException(`Order with id-${id} not found`);
     }
 
     return found;
@@ -41,13 +44,13 @@ export class OrdersService {
     }
   }
 
-  async updateOrderStatus(id: number, status: OrderStatus): Promise<Order> {
-    const order = await this.getOrderById(id);
-    order.status = status;
-    await order.save();
-
-    return order;
-  }
+  // async updateOrderStatus(id: number, status: OrderStatus): Promise<Order> {
+  //   const order = await this.getOrderById(id);
+  //   order.status = status;
+  //   await order.save();
+  //
+  //   return order;
+  // }
 
   async createOrder(
     createOrderDto: CreateOrderDto,
