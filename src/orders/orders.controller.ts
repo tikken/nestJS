@@ -19,6 +19,8 @@ import { OrderStatusValidationPipe } from './order-status-validation.pipe';
 import { Order } from './order.entity';
 import { OrderStatus } from './order.model';
 import { AuthGuard } from '@nestjs/passport';
+import { User } from '../auth/user.entity';
+import { GetUser } from '../auth/get-user.decorator';
 
 @Controller('orders')
 @UseGuards(AuthGuard())
@@ -58,7 +60,8 @@ export class OrdersController {
     // @Body('title') title: string,
     // @Body('description') description: string
     @Body() createOrderDto: CreateOrderDto,
+    @GetUser() user: User
   ): Promise<Order> {
-    return this.ordersService.createOrder(createOrderDto);
+    return this.ordersService.createOrder(createOrderDto, user);
   }
 }

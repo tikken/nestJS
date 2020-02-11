@@ -5,6 +5,7 @@ import { OrderRepository } from './order.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Order} from './order.entity';
 import { OrderStatus } from './order.model';
+import { User } from '../auth/user.entity';
 
 @Injectable()
 export class OrdersService {
@@ -44,7 +45,10 @@ export class OrdersService {
         return order;
     }
 
-    async createOrder(createOrderDto: CreateOrderDto): Promise<Order> {
-       return this.orderRepository.createOrder(createOrderDto)
+    async createOrder(
+      createOrderDto: CreateOrderDto,
+      user: User
+    ): Promise<Order> {
+       return this.orderRepository.createOrder(createOrderDto, user)
     }
 }
