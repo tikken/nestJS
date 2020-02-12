@@ -10,7 +10,7 @@ import {
   UsePipes,
   ValidationPipe,
   ParseIntPipe,
-  UseGuards,
+  UseGuards, Logger,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './create-order.dto';
@@ -25,6 +25,8 @@ import { GetUser } from '../auth/get-user.decorator';
 @Controller('orders')
 @UseGuards(AuthGuard())
 export class OrdersController {
+  private logger = new Logger('OrdersController')
+
   constructor(private ordersService: OrdersService) {
   }
 
@@ -33,6 +35,9 @@ export class OrdersController {
   getOrders(
     @Query(ValidationPipe) filterDto: GetOrderFilterDto,
     @GetUser() user: User): Promise<Order[]> {
+
+    this.logger.verbose(`User ${user.username} retrieving all task. ${JSON.stringify(filterDto)}`);
+
     return this.ordersService.getOrders(filterDto, user);
   }
 
