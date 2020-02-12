@@ -55,8 +55,12 @@ export class OrdersController {
   }
 
   @Delete('/:id')
-  deleteOrder(@Param('id', ParseIntPipe) id: number): Promise<void> {
-    return this.ordersService.deleteOrder(id);
+  deleteOrder(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ):
+  Promise<void> {
+    return this.ordersService.deleteOrder(id, user);
   }
 
   @Post()
