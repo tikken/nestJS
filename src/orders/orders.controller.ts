@@ -39,7 +39,7 @@ export class OrdersController {
   @Get('/:id')
   getOrderById(
     @Param('id', ParseIntPipe) id: number,
-    @GetUser() user: User
+    @GetUser() user: User,
   ): Promise<Order> {
     return this.ordersService.getOrderById(id, user);
   }

@@ -47,7 +47,7 @@ export class OrdersService {
   async updateOrderStatus(
     id: number,
     status: OrderStatus,
-    user: User
+    user: User,
   ): Promise<Order> {
     const order = await this.getOrderById(id, user);
     order.status = status;
